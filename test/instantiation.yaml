@@ -1,0 +1,19 @@
+---
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-chart-instantiation
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Chart.Instantiation
+    keys:
+      - "values_file_relative_path"
+      - "override_values"
+    properties:
+      override_values:
+        type: array
+        items:
+          type: helm-value-assignment:Semantictype
+      values_file_relative_path:
+        type: helm-chart-values-file-relative-path:Semantictype  
+          

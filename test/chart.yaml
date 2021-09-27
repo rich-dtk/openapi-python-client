@@ -1,0 +1,63 @@
+---
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  # TODO: need update to parser for top names
+  # name: helm-chart
+  name: kube-helm-chart
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Chart
+    keys:
+      - "metadata/name"
+      - "metadata/namespace"
+    functions:
+    - name: values_files
+      key: "spec/values_files"  
+    - name: instantiations
+      key: "spec/instantiations"
+    properties:
+      metadata:
+        required:
+          - "name"
+        properties:
+          name:
+            type: kube-name:Semantictype
+          namespace:
+            #default: default
+            type: kube-namespace:Semantictype
+      spec:
+        properties:
+          values_files:
+            type: array
+            items:
+              type: helm-chart-values-file:Semantictype  
+          instantiations:
+            type: array
+            items:
+              type: helm-chart-instantiation:Semantictype    
+---                
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-chart-values-file
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Chart.ValuesFile
+    keys:
+      - "relative_path"
+    required:
+      - "relative_path"  
+    properties:
+      relative_path:
+        type: helm-chart-values-file-relative-path:Semantictype
+
+---
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-chart-values-file-relative-path
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Chart.ValuesFile.RelativePath
+    type: string

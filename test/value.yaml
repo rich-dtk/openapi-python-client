@@ -1,0 +1,41 @@
+---
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-value-assignment
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Value.Assignment
+    keys:
+      - "name"
+      - "value"
+    required:
+      - "name"  
+      - "value"
+    properties:
+      name:
+        type: helm-value-name:Semantictype
+      value:
+        type: helm-value:Semantictype  
+
+---
+# TODO: replace helm-value-name and helm-value with Config.Name and Config.Value
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-value-name
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Value.Name
+    type: string
+
+---
+apiVersion: dtk.io/v1alpha1
+kind: Semantictype
+metadata:
+  name: helm-value
+spec:
+  openAPIV3Schema:
+    semantic_name: Helm.Value
+    # TODO: should this instead by json?
+    type: string
