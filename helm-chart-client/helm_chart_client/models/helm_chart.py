@@ -12,13 +12,17 @@ T = TypeVar("T", bound="HelmChart")
 class HelmChart:
     """ """
 
-    values_files: Union[Unset, HelmChartValuesFile] = UNSET
+    values_files: Union[Unset, List[HelmChartValuesFile]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        values_files: Union[Unset, Dict[str, Any]] = UNSET
+        values_files: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.values_files, Unset):
-            values_files = self.values_files.to_dict()
+            values_files = []
+            for values_files_item_data in self.values_files:
+                values_files_item = values_files_item_data.to_dict()
+
+                values_files.append(values_files_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -31,12 +35,12 @@ class HelmChart:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        values_files = []
         _values_files = d.pop("values_files", UNSET)
-        values_files: Union[Unset, HelmChartValuesFile]
-        if isinstance(_values_files, Unset):
-            values_files = UNSET
-        else:
-            values_files = HelmChartValuesFile.from_dict(_values_files)
+        for values_files_item_data in _values_files or []:
+            values_files_item = HelmChartValuesFile.from_dict(values_files_item_data)
+
+            values_files.append(values_files_item)
 
         helm_chart = cls(
             values_files=values_files,

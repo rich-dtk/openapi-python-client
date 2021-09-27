@@ -12,7 +12,10 @@
         "type": "object",
         "properties": {
           "values_files": {
-            "$ref": "#/components/schemas/Helm.Chart.Values.File"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Helm.Chart.Values.File"
+            }
           }
         }
       },
