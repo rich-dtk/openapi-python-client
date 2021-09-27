@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "My Test API for helm chart info",
+    "description": "An API for testing openapi-python-client",
+    "version": "0.1.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Helm.Chart": {
+        "type": "object",
+        "properties": {
+          "values_files": {
+            "$ref": "#/components/schemas/Helm.Chart.Values.File"
+          }
+        }
+      },
+      "Helm.Chart.Values.File": {
+        "required": [
+          "relative_path"
+        ],
+        "type": "object",
+        "properties": {
+          "relative_path": {
+            "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
+          }
+        }
+      },
+      "Helm.Chart.ValuesFile.RelativePath": {
+        "type": "string"
+      }
+    }
+  }
+}
