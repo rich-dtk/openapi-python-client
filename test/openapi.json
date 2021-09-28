@@ -39,7 +39,8 @@
       },
       "Helm.Chart.Instantiation": {
         "required": [
-          "values_file_relative_path"
+          "values_file_relative_path",
+          "override_values"
         ],
         "type": "object",
         "properties": {
