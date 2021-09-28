@@ -13,11 +13,17 @@ T = TypeVar("T", bound="HelmChart")
 class HelmChart:
     """ """
 
+    instantiations: List[HelmChartInstantiation]
     values_files: Union[Unset, List[HelmChartValuesFile]] = UNSET
-    instantiations: Union[Unset, List[HelmChartInstantiation]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        instantiations = []
+        for instantiations_item_data in self.instantiations:
+            instantiations_item = instantiations_item_data.to_dict()
+
+            instantiations.append(instantiations_item)
+
         values_files: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.values_files, Unset):
             values_files = []
@@ -26,27 +32,28 @@ class HelmChart:
 
                 values_files.append(values_files_item)
 
-        instantiations: Union[Unset, List[Dict[str, Any]]] = UNSET
-        if not isinstance(self.instantiations, Unset):
-            instantiations = []
-            for instantiations_item_data in self.instantiations:
-                instantiations_item = instantiations_item_data.to_dict()
-
-                instantiations.append(instantiations_item)
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "instantiations": instantiations,
+            }
+        )
         if values_files is not UNSET:
             field_dict["values_files"] = values_files
-        if instantiations is not UNSET:
-            field_dict["instantiations"] = instantiations
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        instantiations = []
+        _instantiations = d.pop("instantiations")
+        for instantiations_item_data in _instantiations:
+            instantiations_item = HelmChartInstantiation.from_dict(instantiations_item_data)
+
+            instantiations.append(instantiations_item)
+
         values_files = []
         _values_files = d.pop("values_files", UNSET)
         for values_files_item_data in _values_files or []:
@@ -54,16 +61,9 @@ class HelmChart:
 
             values_files.append(values_files_item)
 
-        instantiations = []
-        _instantiations = d.pop("instantiations", UNSET)
-        for instantiations_item_data in _instantiations or []:
-            instantiations_item = HelmChartInstantiation.from_dict(instantiations_item_data)
-
-            instantiations.append(instantiations_item)
-
         helm_chart = cls(
-            values_files=values_files,
             instantiations=instantiations,
+            values_files=values_files,
         )
 
         helm_chart.additional_properties = d

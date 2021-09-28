@@ -10,6 +10,7 @@
     "schemas": {
       "Helm.Chart": {
         "type": "object",
+        "required": ["instantiations"],
         "properties": {
           "values_files": {
             "type": "array",
