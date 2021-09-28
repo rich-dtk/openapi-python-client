@@ -16,6 +16,12 @@
             "items": {
               "$ref": "#/components/schemas/Helm.Chart.Values.File"
             }
+          },
+          "instantiations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Helm.Chart.Instantiation"
+            }
           }
         }
       },
@@ -28,6 +34,36 @@
           "relative_path": {
             "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
           }
+        }
+      },
+      "Helm.Chart.Instantiation": {
+        "required": [
+          "values_file_relative_path"
+        ],
+        "type": "object",
+        "properties": {
+          "values_file_relative_path": {
+            "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
+          },
+          "override_values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Helm.Value.Assignment"
+            }
+          }
+        }
+      },
+      "Helm.Value.Assignment": {
+        "type": "object",
+        "required": [
+          "name",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {}
         }
       },
       "Helm.Chart.ValuesFile.RelativePath": {
