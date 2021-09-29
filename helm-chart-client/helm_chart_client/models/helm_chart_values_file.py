@@ -2,8 +2,6 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..models.helm_chart_values_file_relative_path import HelmChartValuesFileRelativePath
-
 T = TypeVar("T", bound="HelmChartValuesFile")
 
 
@@ -11,11 +9,11 @@ T = TypeVar("T", bound="HelmChartValuesFile")
 class HelmChartValuesFile:
     """ """
 
-    relative_path: HelmChartValuesFileRelativePath
+    relative_path: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        relative_path = self.relative_path.to_dict()
+        relative_path = self.relative_path
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -30,7 +28,7 @@ class HelmChartValuesFile:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        relative_path = HelmChartValuesFileRelativePath.from_dict(d.pop("relative_path"))
+        relative_path = d.pop("relative_path")
 
         helm_chart_values_file = cls(
             relative_path=relative_path,

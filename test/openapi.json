@@ -33,7 +33,7 @@
         "type": "object",
         "properties": {
           "relative_path": {
-            "type": "object"
+            "type": "string"
           }
         }
       },
