@@ -33,7 +33,7 @@
         "type": "object",
         "properties": {
           "relative_path": {
-            "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
+            "type": "object"
           }
         }
       },
@@ -48,24 +48,8 @@
             "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
           },
           "override_values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Helm.Value.Assignment"
-            }
+            "type": "object"
           }
-        }
-      },
-      "Helm.Value.Assignment": {
-        "type": "object",
-        "required": [
-          "name",
-          "value"
-        ],
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "value": {}
         }
       },
       "Helm.Chart.ValuesFile.RelativePath": {

@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..models.helm_value_assignment import HelmValueAssignment
+from ..models.helm_chart_instantiation_override_values import HelmChartInstantiationOverrideValues
 
 T = TypeVar("T", bound="HelmChartInstantiation")
 
@@ -12,16 +12,12 @@ class HelmChartInstantiation:
     """ """
 
     values_file_relative_path: str
-    override_values: List[HelmValueAssignment]
+    override_values: HelmChartInstantiationOverrideValues
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         values_file_relative_path = self.values_file_relative_path
-        override_values = []
-        for override_values_item_data in self.override_values:
-            override_values_item = override_values_item_data.to_dict()
-
-            override_values.append(override_values_item)
+        override_values = self.override_values.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -39,12 +35,7 @@ class HelmChartInstantiation:
         d = src_dict.copy()
         values_file_relative_path = d.pop("values_file_relative_path")
 
-        override_values = []
-        _override_values = d.pop("override_values")
-        for override_values_item_data in _override_values:
-            override_values_item = HelmValueAssignment.from_dict(override_values_item_data)
-
-            override_values.append(override_values_item)
+        override_values = HelmChartInstantiationOverrideValues.from_dict(d.pop("override_values"))
 
         helm_chart_instantiation = cls(
             values_file_relative_path=values_file_relative_path,
