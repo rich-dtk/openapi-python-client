@@ -48,9 +48,12 @@
             "$ref": "#/components/schemas/Helm.Chart.ValuesFile.RelativePath"
           },
           "override_values": {
-            "type": "object"
+            "$ref": "#/components/schemas/Helm.Value.Assignments"
           }
         }
+      },
+      "Helm.Value.Assignments": {
+        "type": "object"
       },
       "Helm.Chart.ValuesFile.RelativePath": {
         "type": "string"

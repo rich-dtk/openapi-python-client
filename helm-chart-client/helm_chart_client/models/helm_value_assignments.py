@@ -2,48 +2,30 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..models.helm_value_assignments import HelmValueAssignments
-
-T = TypeVar("T", bound="HelmChartInstantiation")
+T = TypeVar("T", bound="HelmValueAssignments")
 
 
 @attr.s(auto_attribs=True)
-class HelmChartInstantiation:
+class HelmValueAssignments:
     """ """
 
-    values_file_relative_path: str
-    override_values: HelmValueAssignments
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        values_file_relative_path = self.values_file_relative_path
-        override_values = self.override_values.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "values_file_relative_path": values_file_relative_path,
-                "override_values": override_values,
-            }
-        )
+        field_dict.update({})
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        values_file_relative_path = d.pop("values_file_relative_path")
+        helm_value_assignments = cls()
 
-        override_values = HelmValueAssignments.from_dict(d.pop("override_values"))
-
-        helm_chart_instantiation = cls(
-            values_file_relative_path=values_file_relative_path,
-            override_values=override_values,
-        )
-
-        helm_chart_instantiation.additional_properties = d
-        return helm_chart_instantiation
+        helm_value_assignments.additional_properties = d
+        return helm_value_assignments
 
     @property
     def additional_keys(self) -> List[str]:
